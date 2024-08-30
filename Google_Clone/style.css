@@ -17,7 +17,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
+    overflow: none;
 }
 
 .container {
@@ -27,7 +27,9 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
+}
+.container p{
+    font-family: sans-serif;
 }
 
 .google_image {
@@ -42,6 +44,7 @@ body {
     font-size: 16px;
     flex: 1;
     border: none;
+    
 }
 
 .search_input:focus {
@@ -63,6 +66,7 @@ body {
     border-radius: 2rem;
     padding: 1rem;
     gap: 1rem;
+    /* box-shadow: 0.5rem 0.5rem 2rem 0px rgba(0, 0, 0, 0.29); */
 }
 
 .btn_container {

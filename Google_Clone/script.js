@@ -30,6 +30,7 @@ function fetchContent(query) {
 
 function displayContent(items) {
   container.style.display = "none";
+  // mainContainer.style.justifyContent = "flex-start"
   output.style.display = "flex";
   outputArea.innerHTML = "";
 
@@ -50,6 +51,7 @@ function displayContent(items) {
 window.addEventListener("keydown", (event) => {
   if (event.key === "Enter" && query.value.trim() !== "") {
     fetchContent(query);
+    query.value=''
   }
 });
 
@@ -64,7 +66,17 @@ outputSearchBtn.addEventListener("click", () => {
     fetchContent(outputSearch);
   }
 });
-containerImg.addEventListener("click", ()=>{
-  container.style.display = "flex";
-  output.style.display = "none";
+
+containerImg.addEventListener("click", () => {
+  location.reload();  
+});
+
+search.addEventListener("click",()=>{
+  if (query.value.trim() !== "") {
+    fetchContent(query);
+  }
+})
+
+document.querySelector(".feeling_lucky").addEventListener("click",()=>{
+  window.location.href = "https://doodles.google/" 
 })
