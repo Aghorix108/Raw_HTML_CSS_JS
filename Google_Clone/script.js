@@ -11,7 +11,7 @@ let outputSearchBtn = document.querySelector("#outputQuerySearch")
 let containerImg = document.querySelector(".google_image_output")
 let num = 20;
 output.style.display = "none"
-function fetchContent(query) {
+let fetchContent= (query)=> {
   fetch(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${encodeURIComponent(query.value)}`)
     .then(response => {
       if (!response.ok) {
@@ -28,7 +28,7 @@ function fetchContent(query) {
     });
 }
 
-function displayContent(items) {
+let displayContent = (items)=> {
   container.style.display = "none";
   // mainContainer.style.justifyContent = "flex-start"
   output.style.display = "flex";
