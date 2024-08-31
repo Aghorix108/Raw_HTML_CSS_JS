@@ -1,5 +1,3 @@
-let apiKey = 'AIzaSyAo5IUZzG3jLpe0QiAVIzfn1EhF8muBR2o';
-let searchEngineId = 'c5352ca746dff43a7';
 let query = document.querySelector(".search_input");
 let search = document.querySelector(".search_btn");
 let outputArea = document.querySelector(".output")
@@ -9,7 +7,13 @@ let outputSearch = document.querySelector(".output_query");
 let mainContainer = document.querySelector(".main-container")
 let outputSearchBtn = document.querySelector("#outputQuerySearch")
 let containerImg = document.querySelector(".google_image_output")
+let apiKey = 'AIzaSyDMxVI5ihEvFCv2CbJ6Mpmd--lr9rI2F9o';
+let searchEngineId = 'c5352ca746dff43a7';
+let apps = document.querySelector("#appsIcon");
+let navbar = document.querySelector(".navbar")
 let num = 20;
+
+
 output.style.display = "none"
 let fetchContent= (query)=> {
   fetch(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${encodeURIComponent(query.value)}`)
@@ -24,11 +28,12 @@ let fetchContent= (query)=> {
       displayContent(data.items);
     })
     .catch(error => {
-      console.error("Error:", error.message);
+      console.error("Error: Not able to send Request", error.message);
     });
 }
 
 let displayContent = (items)=> {
+  navbar.style.display = "none"
   container.style.display = "none";
   // mainContainer.style.justifyContent = "flex-start"
   output.style.display = "flex";
@@ -79,4 +84,12 @@ search.addEventListener("click",()=>{
 
 document.querySelector(".feeling_lucky").addEventListener("click",()=>{
   window.location.href = "https://doodles.google/" 
+})
+apps.addEventListener("click", ()=>{
+  const navApps = document.querySelector(".nav-apps");
+  if (navApps.style.display === "flex") {
+    navApps.style.display = "none";
+  } else {
+    navApps.style.display = "flex";
+  }
 })
