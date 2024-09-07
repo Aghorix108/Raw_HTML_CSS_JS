@@ -17,6 +17,7 @@ body {
     align-items: center;
     /* background-color: red; */
     justify-content: space-between;
+    position: fixed;
 }
 
 .nav-left {
@@ -255,6 +256,9 @@ body {
 }
 
 @media screen and (max-width: 820px) {
+    #micInput{
+        display: flex;
+    }
     .input_icon {
         display: none;
     }

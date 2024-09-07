@@ -13,7 +13,6 @@ let apps = document.querySelector("#appsIcon");
 let navbar = document.querySelector(".navbar")
 let num = 20;
 
-
 output.style.display = "none"
 let fetchContent= (query)=> {
   fetch(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${encodeURIComponent(query.value)}`)
@@ -91,5 +90,27 @@ apps.addEventListener("click", ()=>{
     navApps.style.display = "none";
   } else {
     navApps.style.display = "flex";
+  }
+})
+
+document.querySelector("#micInput").addEventListener('click', () => {
+  let speech = true;
+  window.SpeechRecognition = window.webkitSpeechRecognition;
+
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+
+  recognition.addEventListener('result', e => {
+      const transcript = Array.from(e.results)
+          .map(result => result[0])
+          .map(result => result.transcript)
+          .join('')
+
+      document.getElementById("searchInput").value = transcript;
+      console.log(transcript);
+  });
+  
+  if (speech == true) {
+      recognition.start();
   }
 })
