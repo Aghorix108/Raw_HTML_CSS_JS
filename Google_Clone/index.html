@@ -41,7 +41,8 @@
             <img class="google_image" src="assets/pngimg.com - google_PNG19644.png" alt="" srcset="">
             <div class="input-area">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input id="searchInput" class="search_input" type="text" placeholder="Enter What You Want To Search">
+                <!-- <div  class="gcse-search" id="searchInput"  enableAutoComplete="true"></div> -->
+                <input id="searchInput"  class="search_input" type="text" placeholder="Enter What You Want To Search" enableAutoComplete="true">
                 <abbr title="Microphone(Not Available)">
                     <img id="micInput" class="input_icon" src="assets/Google_mic.svg" alt="" srcset="">
                 </abbr>
@@ -49,6 +50,7 @@
                     <img class="input_icon" src="assets/Google_Lens_Icon.svg" alt="" srcset="">
                 </abbr>
             </div>
+            
             <div class="btn_container">
                 <button class="home_btn search_btn">Google Search</button>
                 <button class="home_btn feeling_lucky">I'm Feeling Lucky</button>
@@ -60,16 +62,36 @@
                 <img class="google_image_output" src="assets/pngimg.com - google_PNG19644.png" alt="" srcset="">
                 <div class="output-query-box">
                     <input class="output_query" type="text" placeholder="Enter What You Want To Search">
+                    <i id="output_query_cross" class="fa-solid fa-x"></i>
+                    <img id="micInput" class="input_icon" src="assets/Google_mic.svg" alt="" srcset="">
                     <i id="outputQuerySearch" class="fa-solid fa-magnifying-glass"></i>
                 </div>
+            </div>
+            <div class="nav-items">
+                <div class="nav-item" onclick="fetchData">All</div>
+                <div class="nav-item" onclick="getImage()">Images</div>
+                <div class="nav-item">Videos</div>
+                <div class="nav-item">News</div>
+                <div class="nav-item">Maps</div>
+                <div class="nav-item">More</div>
+                <div class="nav-item">Settings</div>
+                <div class="nav-item">Tools</div>
             </div>
             <div class="output">
 
             </div>
         </div>
+        <div class="pagination">
+            <button class="pagination-arrows" id="previousPage"><</button>
+            <div class="pagination-page"></div>
+            <button class="pagination-arrows" id="nextPage">></button>
+        </div>
+        
     </div>
     <script src="script.js"></script>
+    <script async src="https://cse.google.com/cse.js?cx=c5352ca746dff43a7"></script>
     <script src="https://kit.fontawesome.com/43ec13ec6e.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
+<a href="" onclick=""></a>
