@@ -268,6 +268,47 @@ body {
     font-weight: 500;
     justify-content: flex-start;
 }
+.image-output{
+    min-height: 100vh;
+    height: inherit;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.output-image{
+    height: 10rem;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem;
+}
+.output-image-element{
+    height: auto;
+    width: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 1rem;
+    padding: 1rem;
+    gap: 0.5rem;
+}
+.output-image-heading{
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+.output-image-title{
+    font-size: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
 .pagination{
     height: auto;
     width: 70%;

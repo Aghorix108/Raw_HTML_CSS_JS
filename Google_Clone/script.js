@@ -14,18 +14,22 @@ let prevPage = document.querySelector("#previousPage")
 let pages = document.querySelector(".pagination-page")
 let paginationSection = document.querySelector(".pagination")
 let navItems = document.querySelector(".nav-items")
-let apiKey = 'AIzaSyAo5IUZzG3jLpe0QiAVIzfn1EhF8muBR2o';
+let imageSection = document.querySelector("#imageSection")
+let imageOutput = document.querySelector(".image-output")
+let allSearch = document.querySelector("#allSearch")
+let apiKey = 'AIzaSyDMxVI5ihEvFCv2CbJ6Mpmd--lr9rI2F9o';
 let searchEngineId = 'c5352ca746dff43a7';
-let start = 1; // Initialize start value
-let savedQuery = ""; // Initialize a variable to store the query globally
-let totalResults = 100; // Assuming 100 total results for pagination
-
+let start = 1; 
+let savedQuery = ""; 
+let totalResults = 100; 
+let searchType = "text"
 output.style.display = "none";
 paginationSection.style.display = "none";
-// Function to fetch search content
-let fetchContent = (query, pageNum = 1, searchType) => { 
+document.cookie = "key=value; SameSite=None; Secure";
+
+let fetchContent = (query, pageNum = 1) => { 
   if (query) {
-    savedQuery = query.value.trim(); // Save the query for later use
+    savedQuery = query.value.trim();
   }
 
   if (!savedQuery) {
@@ -36,7 +40,7 @@ let fetchContent = (query, pageNum = 1, searchType) => {
   let baseLink = 'https://www.googleapis.com/customsearch/v1?'
   let q = encodeURIComponent(savedQuery);
   let start = pageNum;
-  let url = `${baseLink}key=${apiKey}&cx=${searchEngineId}&q=${q}&start=${start}&serachType=${searchType}`;
+  let url = `${baseLink}key=${apiKey}&cx=${searchEngineId}&q=${q}&start=${start}`;
 
   fetch(url)
     .then(response => {
@@ -48,15 +52,15 @@ let fetchContent = (query, pageNum = 1, searchType) => {
     .then(data => {
       console.log(data);
       displayContent(data.items); 
-      createPaginationButtons(pageNum); // Create page numbers dynamically
+      createPaginationButtons(pageNum);
     })
     .catch(error => {
       console.error("Error: Not able to send Request", error.message);
     });
 };
 
-// Function to display search results
 let displayContent = (items) => {
+  imageOutput.style.display = "none";
   navbar.style.display = "none";
   container.style.display = "none";
   output.style.display = "flex";
@@ -75,17 +79,16 @@ let displayContent = (items) => {
   });
 };
 
-// Function to create pagination buttons (1 to 10)
+
 let createPaginationButtons = (currentPage) => {
-  pages.innerHTML = ""; // Clear previous pagination buttons
-  let totalPages = Math.min(10, Math.ceil(totalResults / 10)); // Limit to 10 pages for demo purposes
+  pages.innerHTML = "";
+  let totalPages = Math.min(10, Math.ceil(totalResults / 10)); 
 
   for (let i = 1; i <= totalPages; i++) {
     let button = document.createElement("a");
     button.className = "pagination-btn";
     button.innerText = i;
 
-    // Add 'active' class to the current page button
     if (i === currentPage) {
       button.classList.add("active");
     }
@@ -93,14 +96,11 @@ let createPaginationButtons = (currentPage) => {
     button.addEventListener("click", () => {
       let newStart = (i - 1) * 10 + 1;
 
-      // Remove 'active' class from all pagination buttons
       let allButtons = document.querySelectorAll(".pagination-btn");
       allButtons.forEach(btn => btn.classList.remove("active"));
 
-      // Add 'active' class to the clicked button
       button.classList.add("active");
 
-      // Fetch content for the selected page
       fetchContent(null, newStart);
     });
 
@@ -109,7 +109,7 @@ let createPaginationButtons = (currentPage) => {
 };
 
 
-// Next and Previous page event listeners
+
 nextPage.addEventListener("click", () => {
   start += 10;
   window.scrollTo(0, 0);
@@ -118,7 +118,7 @@ nextPage.addEventListener("click", () => {
 
 prevPage.addEventListener("click", ()=> {
   start -= 10;
-  if (start < 1) start = 1; // Prevent start from going below 1
+  if (start < 1) start = 1; 
   window.scrollTo(0, 0);
   fetchContent(null, start);
 });
@@ -164,7 +164,11 @@ apps.addEventListener("click", () => {
     navApps.style.display = "flex";
   }
 });
-
+allSearch.addEventListener("click", () => {
+  imageOutput.style.display = "none";
+  outputArea.style.display = "flex";
+  fetchContent(savedQuery, 1);
+});
 
 document.querySelector("#micInput").addEventListener('click', () => {
   let speech = true;
@@ -187,3 +191,35 @@ document.querySelector("#micInput").addEventListener('click', () => {
     recognition.start();
   }
 });
+
+imageSection.addEventListener("click", () => {
+  outputArea.style.display = "none";
+  imageOutput.style.display = "flex"; 
+  imageOutput.innerHTML = ""; // Clear previous image results
+  fetch(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${savedQuery}&start=8&searchType=image`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Unable to reach the website. Status code: " + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data.items);
+      displayImages(data.items);
+    })
+    .catch(error => {
+      console.error("Error: Not able to send Request", error.message);
+    });
+});
+
+let displayImages = (items) =>{
+  items.forEach(element=>{
+    imageOutput.innerHTML += `
+    <div class="output-image-element">
+      <img src="${element.link}" alt="${element.title}" class="output-image">
+      <h4 class="output-image-heading">${element.htmlSnippet}</h1>
+      <a href="${element.link}" target="_blank" class="output-image-title">${element.title}</a>
+    </div>`
+    
+  })
+}
